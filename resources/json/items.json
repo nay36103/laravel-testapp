@@ -1,0 +1,74 @@
+[
+  {
+    "name": "Small Potion Heal",
+    "game_item_id": 1050,
+    "chance": 0.12,
+    "stock": 1000
+  },
+  {
+    "name": "Medium Potion Heal",
+    "game_item_id": 3315,
+    "chance": 0.08,
+    "stock": 80
+  },
+  {
+    "name": "Big Potion Heal",
+    "game_item_id": 5830,
+    "chance": 0.06,
+    "stock": 15
+  },
+  {
+    "name": "Full Potion Heal",
+    "game_item_id": 1650,
+    "chance": 0.04,
+    "stock": 10
+  },
+  {
+    "name": "Small MP Potion",
+    "game_item_id": 10235,
+    "chance": 0.12,
+    "stock": 1000
+  },
+  {
+    "name": "Medium MP Potion",
+    "game_item_id": 892,
+    "chance": 0.08,
+    "stock": 80
+  },
+  {
+    "name": "Big MP Potion",
+    "game_item_id": 14736,
+    "chance": 0.06,
+    "stock": 15
+  },
+  {
+    "name": "Full MP Potion",
+    "game_item_id": 19001,
+    "chance": 0.04,
+    "stock": 8
+  },
+  {
+    "name": "Attack Ring",
+    "game_item_id": 135007,
+    "chance": 0.05,
+    "stock": 10
+  },
+  {
+    "name": "Defense Ring",
+    "game_item_id": 68411,
+    "chance": 0.05,
+    "stock": 10
+  },
+  {
+    "name": "Lucky Key",
+    "game_item_id": 118930,
+    "chance": 0.15,
+    "stock": 1000
+  },
+  {
+    "name": "Silver Key",
+    "game_item_id": 117462,
+    "chance": 0.15,
+    "stock": 1000
+  }
+]
