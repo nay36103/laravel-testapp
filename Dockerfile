@@ -32,7 +32,8 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local
 # Update Composer dependencies
 ENV COMPOSER_ALLOW_SUPERUSER=1
 
-RUN composer update
+RUN rm -f composer.lock
+RUN composer update --no-interaction --no-scripts --no-progress
 
 RUN composer show -t tymon/jwt-auth
 
