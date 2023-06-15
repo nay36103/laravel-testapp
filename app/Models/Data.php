@@ -5,10 +5,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\File;
-use Illuminate\Support\Collection;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-
 
 class Data extends Authenticatable implements JWTSubject
 {
@@ -18,7 +16,7 @@ class Data extends Authenticatable implements JWTSubject
 
     public function getJWTIdentifier()
     {
-        return $this->username;
+        return $this->getKey();
     }
 
     public function getJWTCustomClaims()
@@ -28,17 +26,9 @@ class Data extends Authenticatable implements JWTSubject
 
     public static function getAllData()
     {
-        $data = json_decode(File::get(resource_path('json/data.json')), true);
-        return collect($data)->map(function ($item) {
-            return new self([
-                'name' => $item['name'],
-                'phone' => $item['phone'],
-                'email' => $item['email'],
-                'password' => $item['password'],
-                'username' => $item['username'],
-                'company' => $item['company'],
-                'nationality' => $item['nationality'],
-            ]);
+        $data = File::get(resource_path('json/data.json'));
+        return collect(json_decode($data, true))->map(function ($item) {
+            return new self($item);
         });
     }
 
@@ -56,7 +46,7 @@ class Data extends Authenticatable implements JWTSubject
             ];
         });
 
-        File::put(resource_path('json/data.json'), json_encode($modifiedData));
+        File::put(resource_path('json/data.json'), json_encode($modifiedData, JSON_PRETTY_PRINT));
     }
 
     public static function getDataByUsername($username)

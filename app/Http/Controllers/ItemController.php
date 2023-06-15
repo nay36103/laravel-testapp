@@ -18,12 +18,13 @@ class ItemController extends Controller
         $selectedItems = [];
         $totalWeight = array_sum(array_column($itemList, 'chance')) * 100;
 
-        $num = 1;
+        $logData = "\n";
+
         for ($i = 0; $i < 100; $i++) {
             $getItem = false;
             do {
                 $rand = mt_rand(1, $totalWeight);
-                echo "round " . intval($i + 1) . " rand = " . $rand;
+                $logData .= "round " . intval($i + 1) . " random = " . $rand;
 
                 foreach ($itemList as &$item) {
                     $rand -= $item['chance'] * 100;
@@ -41,8 +42,7 @@ class ItemController extends Controller
                             $result[] = ['name' => $item['name'],'game_item_id' => $item['game_item_id'], 'amount' => 1];
                         }
 
-                        echo nl2br(' ' . $num . '>' . $item['name'] . "\n");
-                        $num += 1;
+                        $logData .= ' ' . '>' . $item['name'] . "\n";
                         $item['stock']--;
                         $getItem = true;
                         break;
@@ -50,11 +50,11 @@ class ItemController extends Controller
                 }
             } while ($getItem === false);
         }
-        echo nl2br("\n");
         foreach($result as $row){
             echo $row['name'] . '=>' . $row['amount'] . nl2br("\n");
         }
-
+        $logFile = storage_path('logs/random-log.json');
+        file_put_contents($logFile, $logData, FILE_APPEND);
         return null;
     }
 }

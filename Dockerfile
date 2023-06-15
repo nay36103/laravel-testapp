@@ -24,6 +24,7 @@ RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cac
 
 # Set permissions for resources/json directory
 RUN chmod -R 777 /var/www/html/resources/json/
+RUN chmod -R 777 /var/www/html/storage/
 
 # Install Composer
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
@@ -32,6 +33,8 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local
 ENV COMPOSER_ALLOW_SUPERUSER=1
 
 RUN composer update
+
+RUN composer show -t tymon/jwt-auth
 
 # Expose port 80 for web server
 EXPOSE 80

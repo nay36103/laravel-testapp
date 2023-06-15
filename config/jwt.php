@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-return [
+ return [
 
     /*
     |--------------------------------------------------------------------------
@@ -29,64 +29,6 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | JWT Authentication Keys
-    |--------------------------------------------------------------------------
-    |
-    | The algorithm you are using, will determine whether your tokens are
-    | signed with a random string (defined in `JWT_SECRET`) or using the
-    | following public & private keys.
-    |
-    | Symmetric Algorithms:
-    | HS256, HS384 & HS512 will use `JWT_SECRET`.
-    |
-    | Asymmetric Algorithms:
-    | RS256, RS384 & RS512 / ES256, ES384 & ES512 will use the keys below.
-    |
-    */
-
-    'keys' => [
-
-        /*
-        |--------------------------------------------------------------------------
-        | Public Key
-        |--------------------------------------------------------------------------
-        |
-        | A path or resource to your public key.
-        |
-        | E.g. 'file://path/to/public/key'
-        |
-        */
-
-        'public' => env('JWT_PUBLIC_KEY'),
-
-        /*
-        |--------------------------------------------------------------------------
-        | Private Key
-        |--------------------------------------------------------------------------
-        |
-        | A path or resource to your private key.
-        |
-        | E.g. 'file://path/to/private/key'
-        |
-        */
-
-        'private' => env('JWT_PRIVATE_KEY'),
-
-        /*
-        |--------------------------------------------------------------------------
-        | Passphrase
-        |--------------------------------------------------------------------------
-        |
-        | The passphrase for your private key. Can be null if none set.
-        |
-        */
-
-        'passphrase' => env('JWT_PASSPHRASE'),
-
-    ],
-
-    /*
-    |--------------------------------------------------------------------------
     | JWT time to live
     |--------------------------------------------------------------------------
     |
@@ -94,10 +36,10 @@ return [
     | Defaults to 1 hour.
     |
     | You can also set this to null, to yield a never expiring token.
-    | Some people may want this behaviour for e.g. a mobile app.
+    | Some people may want this behavior for e.g. a mobile app.
     | This is not particularly recommended, so make sure you have appropriate
     | systems in place to revoke the token if necessary.
-    | Notice: If you set this to null you should remove 'exp' element from 'required_claims' list.
+    | Notice: If you set this to null, you should remove 'exp' element from 'required_claims' list.
     |
     */
 
@@ -109,7 +51,7 @@ return [
     |--------------------------------------------------------------------------
     |
     | Specify the length of time (in minutes) that the token can be refreshed
-    | within. I.E. The user can refresh their token within a 2 week window of
+    | within. I.E. The user can refresh their token within a 2-week window of
     | the original token being created until they must re-authenticate.
     | Defaults to 2 weeks.
     |
@@ -128,10 +70,11 @@ return [
     |--------------------------------------------------------------------------
     |
     | Specify the hashing algorithm that will be used to sign the token.
+    | Choose one of the supported algorithms: HS256, HS384, HS512.
     |
     */
 
-    'algo' => env('JWT_ALGO', 'Tymon\JWTAuth\Providers\JWT\Provider::ALGO_HS256'),
+    'algo' => env('JWT_ALGO', 'HS256'),
 
     /*
     |--------------------------------------------------------------------------
@@ -159,10 +102,10 @@ return [
     |--------------------------------------------------------------------------
     |
     | Specify the claim keys to be persisted when refreshing a token.
-    | `sub` and `iat` will automatically be persisted, in
-    | addition to the these claims.
+    | `sub` and `iat` will automatically be persisted, in addition to the
+    | claims listed here.
     |
-    | Note: If a claim does not exist then it will be ignored.
+    | Note: If a claim does not exist, it will be ignored.
     |
     */
 
@@ -170,42 +113,6 @@ return [
         // 'foo',
         // 'bar',
     ],
-
-    /*
-    |--------------------------------------------------------------------------
-    | Lock Subject
-    |--------------------------------------------------------------------------
-    |
-    | This will determine whether a `prv` claim is automatically added to
-    | the token. The purpose of this is to ensure that if you have multiple
-    | authentication models e.g. `App\User` & `App\OtherPerson`, then we
-    | should prevent one authentication request from impersonating another,
-    | if 2 tokens happen to have the same id across the 2 different models.
-    |
-    | Under specific circumstances, you may want to disable this behaviour
-    | e.g. if you only have one authentication model, then you would save
-    | a little on token size.
-    |
-    */
-
-    'lock_subject' => true,
-
-    /*
-    |--------------------------------------------------------------------------
-    | Leeway
-    |--------------------------------------------------------------------------
-    |
-    | This property gives the jwt timestamp claims some "leeway".
-    | Meaning that if you have any unavoidable slight clock skew on
-    | any of your servers then this will afford you some level of cushioning.
-    |
-    | This applies to the claims `iat`, `nbf` and `exp`.
-    |
-    | Specify in seconds - only if you know you need it.
-    |
-    */
-
-    'leeway' => env('JWT_LEEWAY', 0),
 
     /*
     |--------------------------------------------------------------------------
@@ -228,7 +135,7 @@ return [
     | it is possible that some of them fail, due to token regeneration
     | on every request.
     |
-    | Set grace period in seconds to prevent parallel request failure.
+    | Set the grace period in seconds to prevent parallel request failure.
     |
     */
 
@@ -239,11 +146,11 @@ return [
     | Cookies encryption
     |--------------------------------------------------------------------------
     |
-    | By default Laravel encrypt cookies for security reason.
-    | If you decide to not decrypt cookies, you will have to configure Laravel
+    | By default, Laravel encrypts cookies for security reasons.
+    | If you decide not to decrypt cookies, you will have to configure Laravel
     | to not encrypt your cookie token by adding its name into the $except
     | array available in the middleware "EncryptCookies" provided by Laravel.
-    | see https://laravel.com/docs/master/responses#cookies-and-encryption
+    | See https://laravel.com/docs/master/responses#cookies-and-encryption
     | for details.
     |
     | Set it to true if you want to decrypt cookies.
