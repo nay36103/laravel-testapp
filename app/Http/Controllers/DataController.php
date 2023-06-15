@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Data;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\File;
 
 
 class DataController extends Controller
@@ -14,6 +14,7 @@ class DataController extends Controller
     {
         $perPage = $request->query('perPage', 10); // Unit per page
         $page = $request->query('page', 1); // Current page
+
         $keyword = $request->query('keyword');
 
         $data = Data::getAllData();
@@ -32,6 +33,9 @@ class DataController extends Controller
 
         $total = $data->count();
 
+        if (!is_numeric($perPage) || !is_numeric($page)) {
+            return response()->json(['error' => 'Data not found'], 404);
+        }
         // Pagination
         $data = $data->skip(($page - 1) * $perPage)
         ->take($perPage);
@@ -39,6 +43,7 @@ class DataController extends Controller
         $filteredData = $data->map(function ($item) {
             return collect($item)->only(['name', 'phone', 'email', 'username', 'company', 'nationality']);
         });
+
 
         return response()->json([
             'data' => $filteredData,
@@ -190,9 +195,12 @@ class DataController extends Controller
 
             Data::saveAllData($data);
 
-            Log::info('Data deleted - Timestamp: ' . now() . ' | IP: ' . $request->ip());
+            $logMessage = 'Data deleted - Timestamp: ' . $timestamp . ' | IP: ' . $ip . ' | Username: ' . $username;
 
-            return response()->json(['message' => 'Data deleted successfully']);
+            $logFilePath = storage_path('logs/userdata.log');
+            file_put_contents($logFilePath, $logMessage, FILE_APPEND);
+
+            return response()->json(['message' => 'Data deleted Username: ' . $username . ' successfully']);
         } else {
             return response()->json(['error' => 'Data not found'], 404);
         }
@@ -201,7 +209,9 @@ class DataController extends Controller
     {
         $timestamp = now();
         $ip = $request->ip();
+        $logMessage = 'Data ' . ucfirst($action) . ' - Timestamp: ' . $timestamp . ' | IP: ' . $ip;
 
-        Log::info('Data ' . ucfirst($action) . ' - Timestamp: ' . $timestamp . ' | IP: ' . $ip);
+        $logFilePath = storage_path('logs/userdata.log');
+        file_put_contents($logFilePath, $logMessage, FILE_APPEND);
     }
 }

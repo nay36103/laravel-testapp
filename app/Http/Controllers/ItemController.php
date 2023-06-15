@@ -53,7 +53,7 @@ class ItemController extends Controller
         foreach($result as $row){
             echo $row['name'] . '=>' . $row['amount'] . nl2br("\n");
         }
-        $logFile = storage_path('logs/random-log.json');
+        $logFile = storage_path('logs/random-log.log');
         file_put_contents($logFile, $logData, FILE_APPEND);
         return null;
     }

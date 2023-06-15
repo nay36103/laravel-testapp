@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Data;
-use Illuminate\Support\Facades\Log;
 use Tymon\JWTAuth\Facades\JWTAuth;
 use Tymon\JWTAuth\Exceptions\JWTException;
 
@@ -36,6 +35,7 @@ class AuthController extends Controller
 
     private function writeToLog($message)
     {
-        Log::info($message);
+        $logFilePath = storage_path('logs/userdata.log');
+        file_put_contents($logFilePath, $message, FILE_APPEND);
     }
 }
