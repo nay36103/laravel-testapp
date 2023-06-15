@@ -7,7 +7,17 @@
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
 </p>
 
-## About Laravel
+## How to run
+>>git clone https://github.com/nay36103/laravel-testapp.git
+
+>>cd laravel-testapp
+
+>>cp .env.example .env
+
+>>docker build -t laravel-app .
+
+>>docker run -p 8000:80 laravel-app
+
 
 Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
 
