@@ -1,14 +1,5 @@
 # Project Setup Instructions
 
-## DockerHub
-
-To use the DockerHub image, follow these steps:
-
-1. Pull the DockerHub image:
-
-   ```shell
-   docker pull yamsombut/laravel-app:latest
-
 ## local ImageDocker
 
 To use a local Docker image, follow these steps:
@@ -32,6 +23,25 @@ To use a local Docker image, follow these steps:
 5. Run the Docker container:
    ```shell
    docker run -p 8000:80 laravel-app
+
+## DockerHub
+
+To use the DockerHub image, follow these steps:
+
+1. Pull the DockerHub image:
+
+   ```shell
+   docker pull yamsombut/laravel-app:0.1
+
+2. Build the Docker image:
+
+   ```shell
+   docker build -t laravel-app:0.1 .
+
+3. Run Docker image:
+
+   ```shell
+   docker run -p 8000:80 laravel-app:0.1
 
 ## License
 
